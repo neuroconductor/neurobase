@@ -14,6 +14,6 @@ Suggests:    testthat,    ggplot2,    knitr,    rmarkdown,    dplyr,    reshape2
 VignetteBuilder: knitr
 BugReports: https://github.com/muschellij2/nifti/issues
 RoxygenNote: 6.0.1
-Remotes: neuroconductor/oro.nifti@d630f771fbd4c5229478808d8199fe55e5c1fbf3, neuroconductor/RNifti@54c143cc3a64a661820bf1674c17bf8b63695d76
 biocViews:
+Remotes: neuroconductor/oro.nifti@b1f1459c23fb8cb26258a320fcc7ddd73e304e11, neuroconductor/RNifti@abba446af4c87e69d1c787e47f5ad1ca56d0515c
 
