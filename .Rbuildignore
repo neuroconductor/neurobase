@@ -12,7 +12,13 @@ generic_stat.R
 generic_stat_maker.R
 ^packrat/
 ^\.Rprofile$
+<<<<<<< HEAD
 
 ^appveyor\.yml$
 
 
+=======
+^appveyor\.yml$
+
+R/write_nifti_S4\.R
+>>>>>>> upstream/master
