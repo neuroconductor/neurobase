@@ -12,22 +12,7 @@ generic_stat.R
 generic_stat_maker.R
 ^packrat/
 ^\.Rprofile$
-<<<<<<< HEAD
-
 ^appveyor\.yml$
-
-
-=======
-^appveyor\.yml$
-
+R/window_img_old\.R$
 R/write_nifti_S4\.R
->>>>>>> upstream/master
-
-
-
-
-
-
-
-
-
+R/ortho3\.R
