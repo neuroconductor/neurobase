@@ -14,6 +14,6 @@ Suggests:    testthat,    ggplot2,    knitr,    rmarkdown,    dplyr,    reshape2
 VignetteBuilder: knitr
 BugReports: https://github.com/muschellij2/neurobase/issues
 RoxygenNote: 6.0.1
-Remotes: neuroconductor/oro.nifti@3a94a1d847dcebf814a6bae70a96bb40a27545a9, neuroconductor/RNifti@7cfe9871182285ac785098f7586c861a86645bbd
 biocViews:
+Remotes: neuroconductor/oro.nifti@3a94a1d847dcebf814a6bae70a96bb40a27545a9, neuroconductor/RNifti@7cfe9871182285ac785098f7586c861a86645bbd
 
