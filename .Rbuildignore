@@ -8,6 +8,7 @@ Archive.zip
 NEWS.md
 README.md
 
+docs/*
 generic_stat.R
 generic_stat_maker.R
 ^packrat/
@@ -16,6 +17,7 @@ generic_stat_maker.R
 R/window_img_old\.R$
 R/write_nifti_S4\.R
 R/ortho3\.R
+
 
 
 

@@ -69,7 +69,7 @@
 #' ortho2( arr_x)
 #' ortho2( arr_x, arr_y)
 ortho2 = function(x, y = NULL, xyz = NULL, w = 1, col = gray(0:64/64), 
-                   col.y = hotmetal(), zlim = NULL, zlim.y = NULL, 
+                   col.y = oro.nifti::hotmetal(), zlim = NULL, zlim.y = NULL, 
                    NA.x = FALSE,
                    NA.y = TRUE,
                    crosshairs = TRUE, 
@@ -117,10 +117,6 @@ ortho2 = function(x, y = NULL, xyz = NULL, w = 1, col = gray(0:64/64),
     }
     if (!is.null(window)) {
       x = window_img(x, window = window, replace = "window")
-#       x@cal_min = window[1]
-#       x@cal_max = window[2]
-#       x[ x < window[1] ] = window[1]
-#       x[ x >= window[2] ] = window[2]
     }
   } else {
     if (!is.null(mask)) {
@@ -135,6 +131,7 @@ ortho2 = function(x, y = NULL, xyz = NULL, w = 1, col = gray(0:64/64),
   # mXY = max(X, Y)
   lr.shift = 4
   ud.shift = 6
+  range_y = NULL
   if (!is.null(y)) {
     y = check_nifti(y, allow.array = TRUE)
     y_is_nifti = FALSE
@@ -157,8 +154,9 @@ ortho2 = function(x, y = NULL, xyz = NULL, w = 1, col = gray(0:64/64),
     }
     if (y_is_nifti) {
       y = cal_img(y)
-      glmax(y) = cal.max(y)
-      glmin(y) = cal.min(y)       
+      range_y = c(cal.min(y), cal.max(y))
+    } else {
+      range_y = range(y, na.rm = TRUE)
     }
   }
   if (NA.x) {
@@ -166,52 +164,29 @@ ortho2 = function(x, y = NULL, xyz = NULL, w = 1, col = gray(0:64/64),
   }
   if (x_is_nifti) {
     x = cal_img(x)
-  }  
+    range_x = c(cal.max(x), cal.min(x))
+  } else {
+    range_x = range(x, na.rm = TRUE)
+  }
   if (is.null(xyz)) {
     xyz <- ceiling(c(X, Y, Z)/2)
   }
   if (X == 0 || Y == 0 || Z == 0) {
     stop("size of NIfTI volume is zero, nothing to plot")
   }  
-  zlim = zlimmer(x, zlim = zlim)
-  # if (is.null(zlim)) {
-  #   if (x_is_nifti) {
-  #     zlim <- c(cal.min(x), cal.max(x))
-  #     if (any(!is.finite(zlim)) || diff(zlim) == 0) {
-  #       zlim <- c(glmin(x), glmax(x))
-  #     }
-  #   } else {
-  #     zlim = c(0, 0)
-  #   }
-  #   if (any(!is.finite(zlim)) || diff(zlim) == 0) {
-  #     zlim <- range(x, na.rm = TRUE)
-  #   }
-  # }
+  zlim = zlimmer(x, zlim = zlim, computed_range = range_x)
+
   if (is.null(breaks)) {
-    breaks <- c(min(x, zlim, na.rm = TRUE), 
+    range_x_zlim = range(c(range_x, zlim), na.rm = TRUE)
+    breaks <- c(range_x_zlim[1],
                 seq(min(zlim, na.rm = TRUE),
                     max(zlim, na.rm = TRUE), 
                     length = length(col) - 1),
-                max(x, zlim, na.rm = TRUE))
+                range_x_zlim[2])
   }
 
-  zlim.y = zlimmer(y, zlim = zlim.y)
+  zlim.y = zlimmer(y, zlim = zlim.y, computed_range = range_y)
   
-  # if (!is.null(y) && is.null(zlim.y)) {
-  #   if (y_is_nifti){
-  #     zlim.y <- c(cal.min(y), cal.max(y))
-  #     if (any(!is.finite(zlim.y)) || diff(zlim.y) == 0) {
-  #       zlim.y <- c(glmin(x), glmax(x))
-  #     }
-  #   } else {
-  #     zlim = c(0, 0)
-  #   }
-  #   
-  #   zlim.y <- c(y@cal_min, y@cal_max)
-  #   if (max(zlim.y) == 0) {
-  #     zlim.y <- c(x@glmin, x@glmax)
-  #   }
-  # }
   oldpar <- par(no.readonly = TRUE)
   par(mfrow = mfrow, oma = oma, mar = mar, bg = bg)
   
@@ -229,6 +204,13 @@ ortho2 = function(x, y = NULL, xyz = NULL, w = 1, col = gray(0:64/64),
       stop("volume \"w\" out of range")
     }
     x = x[, , , w]
+    if (!is.null(y)) {
+      if (inherits(y, "nifti") || inherits(y, "anlz")) {
+        # class(y@.Data) == "numeric"
+        y = as.array(y)
+      }      
+      y = y[, , , w]
+    }
   }
   # L = list(X = 1:X,
   #          Y = 1:Y,
@@ -274,11 +256,6 @@ ortho2 = function(x, y = NULL, xyz = NULL, w = 1, col = gray(0:64/64),
     text("I", x = X/2 - .5, y = ud.shift, las = 1, col = "white")
   }  
   if (!is.null(y)) {
-    if (inherits(y, "nifti") || inherits(y, "anlz")) {
-      # class(y@.Data) == "numeric"
-      y = as.array(y)
-    }
-    
     if (is.null(ybreaks)) {
       graphics::image(1:X, 1:Z, y[, xyz[2], ], col = col.y, 
                     zlim = zlim.y, add = add,
