@@ -38,3 +38,8 @@ deploy:
   on:
     tags: true    
     repo: muschellij2/neurobase
+
+bioc_required: yes
+use_bioc: yes
+r:
+- release
