@@ -43,3 +43,4 @@ bioc_required: yes
 use_bioc: yes
 r:
 - release
+
