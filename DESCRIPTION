@@ -8,14 +8,14 @@ Maintainer: John Muschelli <muschellij2@gmail.com>
 Description: Base package for 'Neuroconductor', which includes many helper functions 
     that interact with objects of class 'nifti', implemented by
     package 'oro.nifti', for reading/writing and also other manipulation functions.
-Imports:    methods,    abind,    matrixStats,    R.utils,    graphics,    grDevices,    stats,    RNifti
-Depends:    oro.nifti (>= 0.8.0),    R (>= 3.2.0)
+Imports: methods,    abind,    matrixStats,    R.utils,    graphics,    grDevices,    stats,    RNifti
+Depends: oro.nifti (>= 0.8.0),    R (>= 3.2.0)
 License: GPL-2
-Suggests:    testthat,    ggplot2,    knitr,    rmarkdown,    dplyr,    reshape2,    httr,    covr
+Suggests: testthat,    ggplot2,    knitr,    rmarkdown,    dplyr,    reshape2,    httr,    covr
 VignetteBuilder: knitr
 BugReports: https://github.com/muschellij2/neurobase/issues
 RoxygenNote: 6.0.1.9000
 Encoding: UTF-8
 biocViews:
-Remotes: neuroconductor/oro.nifti@a3e10fbd070ba2b44c00dbe17942546b666acddd, neuroconductor/RNifti@8dfcae5774bffdf1ff47a78748eb8b2c62270608
-
+Remotes: neuroconductor/RNifti@6ef343a6ecf48dc85346958f26fe586c4b2b5c15,
+    neuroconductor/oro.nifti@c25f6bcb1200506a3e39127f550bcca7766b0107
