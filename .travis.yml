@@ -1,52 +1,49 @@
-language: R
+language: r
 sudo: false
 cache: packages
 warnings_are_errors: true
-
+use_bioc: true
+bioc_required: true
+cran: http://cran.rstudio.com
 os:
-  - linux
-  - osx
-
+- linux
+- osx
+env:
+  global:
+  - RGL_USE_NULL=TRUE
+  - PROJECT_NAME=neuroconductor
+r_check_args: "--as-cran"
 before_install:
-  - wget -O travis_helpers.sh http://bit.ly/travis_helpers
-  - source travis_helpers.sh
-  - rm travis_helpers.sh
-  - PACKAGE_NAME=`package_name`
-  - PACKAGE_DIRECTORY=`basename ${PWD}`
-
-r_check_args: "--as-cran --install-args=--build"
-
+- export PROJ_DIR=`basename $PWD`
+- fname=travis_helpers.sh
+- wget -O ${fname} http://bit.ly/travis_helpers
+- cat ${fname}; source ${fname}; rm ${fname}
+- cat DESCRIPTION
+- Rscript -e 'source("https://install-github.me/mangothecat/callr")'
+- remove_neuroc_packages
+- cat DESCRIPTION
+- install_remotes_no_dep
+- cat DESCRIPTION
+- export PACKAGE_NAME=`package_name`
+- if [[ "${PACKAGE_NAME}" == "waveslim" ]]; then fftw_install ; fi
 after_success:
-  - Rscript -e 'covr::codecov(type = "all")'
-
+- cat ${PACKAGE_NAME}.Rcheck/00install.out
+- cat ${PACKAGE_NAME}.Rcheck/00check.log
 after_failure:
-  - cat ${PWD}.Rcheck/00install.out
-  - cat ${PWD}.Rcheck/00check.log
-
-notifications:
-  email:
-    on_success: change
-    on_failure: change
-
+- cat ${PACKAGE_NAME}.Rcheck/00install.out
+- cat ${PACKAGE_NAME}.Rcheck/00check.log
+before_deploy:
+- travis_wait 100 R CMD INSTALL --build ${PKG_TARBALL}
+- if [[ "${TRAVIS_OS_NAME}" = "osx" ]]; then rm -f *.tar.gz; fi
 deploy:
   provider: releases
   skip_cleanup: true
-  api_key:
-    secure: Wyb6Hj7awahxJN3jlwVyWQ41364xYPCAohvAOwmUn2wgudQLsWmNA3BEKUromwvpnVJL+aFKaoi/WeBdk7L+imVvJjjBmWJiQdAwr2JZI0GeBNRSppCm3rHMYlq3PJzcnDYv/GMW5d9oQOMNtzY7oYxdemV12Z/GmeWBb9GTRWEzNzZ2d46btQfp8vAuxl4f4kCLUxpqMZK6IN6svV4910TVRJl3RId121JbgdUKgNS4HJMl1ae5X6CY+tkxwP+xW+OwdpkknXcndDvTpymjVk5kb8cN2zcrrFKf/3eYCvone0F32ooOL5GX49kpz4mgDmh8X1jywoT94tL8YE5xVC86zEtdnbcAOBw0MT7iEUuUcuhGoABDEHldgxAOEVMWLxVD0I5FK9yZRic5z9om4DpMYQBCzrHF5gcuzyMpO8O+mdtY3NK5BI75Iz1pUgzjrg5CGtMF4VXOcj8KPyRjKMgpw0yCXbvyR/V9BHrbvZpexQut5ALOvf/i7EJtJdHJjwnazcu+wG9kiQoT/KR1xEHomgOLY9wFTIi3fDVkZniNpuga/EaQj/4aVIkULV5/stQZvjspjBYeYwDDmgiOQYReiCWpGMi5KaclkB6SNX1CFPfqWWDvsBBLBzkDTOgvFP5zDa2Fe3t7sAI1TbVGVKcP1PlMjCzbSwz2rs9t4uw=
   file_glob: true
-  file: neurobase*.t*gz
+  file: "${PACKAGE_NAME}*.t*gz"
   on:
-    tags: true    
-    repo: muschellij2/neurobase
-
-bioc_required: yes
-use_bioc: yes
-r:
-- release
-
-
-
-
-
-
-
+    tags: true
+  api-key:
+    secure: CuhTXj9GE3mULBw4ehPCk9DFbXQ3nnaQ91KdhVAjpm9bl9a0XjxJ7/p5xgjLeCUb3tzh+b4onyBps679jlQ7ZH+c1lRTtxP3/TqR+3385WiX5ZUPMuW9PkJX129pIE1B79GSGOpvel3O5KEGlHY7YBS/yoAZSN0Tj7tgbC4VaxeZCYCi1yWepMcgUzb7fXryPAC2CQxIFdC5BxVoCfjHUksxUSZmCjqSlWp5xTyMZKyAJaFmJWvZLjKp2lm8BDGv10t1XtLPg53UEteL6r63ms4OZmgJpUN7W4Itv7O2bGrEr55qnMUa6DtsJJUsSBk4oMesaVg5HAxC5rpszF2kc54XEjOCk4cJKhw8ECI6aG/+Pz4TaqydQd4cUtf/KXqcawMzRuvSF5QcNoiofGlSTcUwaUPQvoG0xZ6f9bSbllyJ5zM/CYu5du69Xtoy8q2DUzJ6bhKHltnZ7gLDm5pUWDhEzpPWQ/bBhRCDdd4fMdVG9j5eQs7ViRdfK4Afx8oyHDMVPjaiQxvtcdVBJqkUc7pieRBCQC323GVY0dkc4jLcCwFkza5SB3J4CkxTQdFP1Ehvx91b2x1UezFkZ9g5DMIhvh4yBDCPCFt+bl9gHjLJxuh1hhdqPeF5tj2qqJNv/qndL6ukw6Q/lTYHSCGfZFCiXejeMuC/qt8rhIdwIv8=
+after_deploy:
+- if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then Rscript -e 'covr::coveralls(type =
+  "all")' ; fi
