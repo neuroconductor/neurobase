@@ -17,5 +17,5 @@ BugReports: https://github.com/muschellij2/neurobase/issues
 RoxygenNote: 6.0.1.9000
 Encoding: UTF-8
 biocViews:
-Remotes: neuroconductor/RNifti@6ef343a6ecf48dc85346958f26fe586c4b2b5c15,
-    neuroconductor/oro.nifti@c25f6bcb1200506a3e39127f550bcca7766b0107
+Remotes: neuroconductor/RNifti@d463e6d491ab93fe5a9a4fea68ac87812be82d3f,
+    neuroconductor/oro.nifti@e066bff259d77de5614a3ffc1c293310ab4eb997
