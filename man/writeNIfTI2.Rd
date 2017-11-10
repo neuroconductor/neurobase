@@ -8,7 +8,7 @@
 writeNIfTI2(nim, filename, dtype = FALSE, compression = 9, ...)
 
 writenii(nim, filename, dtype = TRUE, drop_dim = TRUE, warn = FALSE,
-  compression = 9, ...)
+  compression = 9, rm_extensions = TRUE, ...)
 }
 \arguments{
 \item{nim}{object of class \code{nifti}, passed to \code{\link{writeNIfTI}}}
@@ -25,6 +25,9 @@ writenii(nim, filename, dtype = TRUE, drop_dim = TRUE, warn = FALSE,
 
 \item{warn}{Should warnings from \code{\link{writeNIfTI}} be 
 printed?  If not, \code{\link{suppressWarnings}} is called}
+
+\item{rm_extensions}{should niftiExtensions be converted to simple
+nifti objects before writing?}
 }
 \value{
 Nothing
