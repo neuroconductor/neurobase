@@ -29,18 +29,27 @@ writeNIfTI2 <- function(nim, filename, dtype = FALSE,
 #' @param drop_dim Should \code{\link{drop_img_dim}} be run before writing?
 #' @param warn Should warnings from \code{\link{writeNIfTI}} be 
 #' printed?  If not, \code{\link{suppressWarnings}} is called 
+#' @param rm_extensions should niftiExtensions be converted to simple
+#' nifti objects before writing?
 #' @export
+#' @importFrom oro.nifti as.nifti is.niftiExtension
 writenii <- function(nim, filename, 
                      dtype = TRUE, 
                      drop_dim = TRUE, 
                      warn = FALSE, 
                      compression = 9,
+                     rm_extensions = TRUE,
                      ...){
   if (drop_dim) {
     nim = drop_img_dim(nim)
   }
   if (dtype) {
     nim = datatyper(nim, warn = warn)
+  }
+  if (oro.nifti::is.niftiExtension(nim)) {
+    if (rm_extensions) {
+      nim = as.nifti(nim)
+    }
   }
   if (warn) {
     x = oro.nifti::writeNIfTI(nim, nii.stub(filename), 
