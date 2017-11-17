@@ -7,7 +7,7 @@
 zscore_img(img, mask = NULL, margin = NULL, centrality = c("mean",
   "median", "trimmed_mean"), variability = c("sd", "iqrdiff", "mad",
   "maddiff", "iqr", "trimmed_sd"), trim = 0.2, remove.na = TRUE,
-  remove.nan = TRUE, remove.inf = TRUE, remove.val = 0)
+  remove.nan = TRUE, remove.inf = TRUE, remove.val = 0, remask = TRUE)
 }
 \arguments{
 \item{img}{character path of image or 
@@ -35,6 +35,8 @@ either mean or median}
 \item{remove.inf}{(logical) change Inf to remove.val}
 
 \item{remove.val}{(logical) value to put the NA/NaN/Inf}
+
+\item{remask}{(logical) Should the image be remasked after normalizing?}
 }
 \value{
 Array of object of class nifti
