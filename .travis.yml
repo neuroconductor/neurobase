@@ -21,7 +21,7 @@ env:
   - RGL_USE_NULL=TRUE
   - PROJECT_NAME=neuroconductor
   - DISPLAY=:99.0
-r_check_args: "--as-cran"
+r_check_args: "--as-cran --install-args=--build"
 before_install:
 - export PROJ_DIR=`basename $PWD`
 - fname=travis_helpers.sh
@@ -38,6 +38,8 @@ before_install:
 - export PACKAGE_NAME=`package_name`
 - if [[ "${PACKAGE_NAME}" == "waveslim" ]]; then fftw_install ; fi
 - if [[ "${PACKAGE_NAME}" == "dti" ]]; then gsl_install ; fi
+- if [[ "${PACKAGE_NAME}" == "ROpenCVLite" ]]; then shopt -s expand_aliases ; x=`Rscript
+  -e "cat(Sys.which('R'))"` ; alias R="travis_wait 100 ${x}" ; fi
 after_success:
 - cat ${PACKAGE_NAME}.Rcheck/00install.out
 - cat ${PACKAGE_NAME}.Rcheck/00check.log
@@ -45,7 +47,6 @@ after_failure:
 - cat ${PACKAGE_NAME}.Rcheck/00install.out
 - cat ${PACKAGE_NAME}.Rcheck/00check.log
 before_deploy:
-- travis_wait 100 R CMD INSTALL --build ${PKG_TARBALL}
 - if [[ "${TRAVIS_OS_NAME}" = "osx" ]]; then rm -f *.tar.gz; fi
 deploy:
   provider: releases
@@ -55,7 +56,7 @@ deploy:
   on:
     tags: true
   api-key:
-    secure: r5vsIIuW5hzdwGzvYqZ0SX5F5Zh+Ja1m7Og4yJe5ygJjRgP3BcfyAwtnIzo+etP/PhExyc/vD6bRapLSXnstqIl3SwP7PH36lrr3QXmGUbNlKaItEeKmJKwjkN/pyI49uUFRFGcY/Q79Zb397rxzH9aJCye8s2pChtrww+UScHiMLjCe0/FZYQHQtNmzz1dZHSFVb6fhlCSQFqtQEfSGyCUUSVqeq6S7fyBSX4iH9xzVBroGxJVcvTM8fPUPF8R5UwheHQ3aEx29D0y9c0ZJI+rZGNp7BahVzzeZlgYtDNqKlA9HRpRC3/aFOUHGYa/TqXDH8EfaTcT9qN7v2o6TQHp0S8O/re5azrMSyrGG79tCdKPmcOapNhwurMhDZ1DHCF32pm/4jFZ0k3/PKafgVxTBWO5z6TukcXZEb1UYqcNBBa7VOsKNvH0kmC6rHXYXPkrXz7lXAyMoicE+6YjB22S+SbwM0lMD3SlsNKUvnvxrr44UhsOwQQS8gEjrop8CzYzwfBaV1z/feW61oLhQs6xLT4IYw7F0q4UwDki8eCucB3/rTdvQCw4StMLEX1pHpf4F27D+SdTCqemq3/18TX8A85RZPL7oehFX7NYh1onlNhr5rbA34S5rLRW9s39VbnwyFbjja36iFBswB/NdV7qFKX4Qqbj1revrPBg3ILo=
+    secure: eYVZplGBWbLpObenbDfxP2+pGO5OskFFldvboThm63ymAt0nhk09A0MAWngdmoqA0ufX7ni8owoEO79ZFVaHxiCLvMplbSJn1hSayS8nIWDHulTGa3WmuzzJhyBBIGrLIzfXW9ucocSly7zB/3pTT3IFq2vtxxSvjCmt/U56jf6NUeP3sDanwNZedapXBPXgHbRivkeqz7TbNXmekSWy6DyzATzEjR99yIQIsmJ6EQZMc8Oi1xt22GIVtR4kV90SfOS9Nud2QTZXG+G9ilP2VVRRprKp8ELJwadJA4aOrfZNSlssfuUo5tIAOPHNshYy/Tp6oNfQ0cyR/fvElsb1NRkNUGCnxuhTCQ3ZtqIBGVMb1fiLPA4RQQSZ9CzmysJYHpVg+bNWGqiEOJGgzQQ1Wuosq02RulU/JYVDTD/fIF3h/MLl9Pt1LRmfe0M7Tmg09YcVOF8lbcV2/yFVgrIwyCi6po+alKgdQyT1eqz1HCyOAk1OzYAdc2HVXFDfKgSGGUDC6/xzzX0+2VD3/iRiJtx0SbDm1Krlw0H83z99mOFjXtIaXnpZBuhgE6yCUy8m+Y2XO6XdWn1K9HOygp/+mER5HtPRvZPyssWWiQIhC10RMwz86hTzBFnEZvF8R39px4rKOMMF7L2rcGEdjROVEryrfi27pfCOzGhl/2d1ObA=
 after_deploy:
-- if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then Rscript -e 'covr::coveralls(type =
-  "all")' ; fi
+- if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then travis_wait 100 Rscript -e 'covr::coveralls(type
+  = "all")' ; fi

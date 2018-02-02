@@ -3,7 +3,7 @@
 \name{writeNIfTI2}
 \alias{writeNIfTI2}
 \alias{writenii}
-\title{writeNIfTI with default non-reoirientation}
+\title{writeNIfTI with default non-reorientation}
 \usage{
 writeNIfTI2(nim, filename, dtype = FALSE, compression = 9, ...)
 
@@ -19,7 +19,7 @@ writenii(nim, filename, dtype = TRUE, drop_dim = TRUE, warn = FALSE,
 
 \item{compression}{compression level for gzipped files.}
 
-\item{...}{Additional arguments pased to \code{\link{writeNIfTI}}}
+\item{...}{Additional arguments passed to \code{\link{writeNIfTI}}}
 
 \item{drop_dim}{Should \code{\link{drop_img_dim}} be run before writing?}
 
