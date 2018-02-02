@@ -1,4 +1,4 @@
-#' @title writeNIfTI with default non-reoirientation
+#' @title writeNIfTI with default non-reorientation
 #' 
 #' @description  This function calls the \code{\link{writeNIfTI}} function from the 
 #' \code{oro.nifti} package, but makes sure to remove \code{.nii} extension and
@@ -7,7 +7,7 @@
 #' @param filename path to save the NIfTI file.  Suffix will be removed
 #' @param dtype Should \code{\link{datatyper}} be run before writing?
 #' @param compression compression level for gzipped files. 
-#' @param ... Additional arguments pased to \code{\link{writeNIfTI}}
+#' @param ... Additional arguments passed to \code{\link{writeNIfTI}}
 #' @note While \code{writeNIfTI2} does not run \code{\link{datatyper}} as default, 
 #' \code{writenii} does.  Additional functionality will be added to \code{writenii} likely
 #' but will not to \code{writeNIfTI2}
