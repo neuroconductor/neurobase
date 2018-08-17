@@ -19,11 +19,11 @@ check_nifti(x, reorient = FALSE, allow.array = FALSE, fast = FALSE,
 \S4method{check_nifti}{nifti}(x, reorient = FALSE, allow.array = FALSE,
   fast = FALSE, need_header = TRUE)
 
-\S4method{check_nifti}{character}(x, reorient = FALSE, allow.array = FALSE,
-  fast = FALSE, need_header = TRUE)
+\S4method{check_nifti}{character}(x, reorient = FALSE,
+  allow.array = FALSE, fast = FALSE, need_header = TRUE)
 
-\S4method{check_nifti}{factor}(x, reorient = FALSE, allow.array = FALSE,
-  fast = FALSE, need_header = TRUE)
+\S4method{check_nifti}{factor}(x, reorient = FALSE,
+  allow.array = FALSE, fast = FALSE, need_header = TRUE)
 
 \S4method{check_nifti}{list}(x, reorient = FALSE, allow.array = FALSE,
   fast = FALSE, need_header = TRUE)
@@ -62,6 +62,10 @@ nifti object or array if allow.array=TRUE and x is an array
 \description{
 Simple check to see if input is character or of 
 class nifti
+}
+\examples{
+x = nifti()
+check_nifti(x)
 }
 \seealso{
 \link{readnii}
