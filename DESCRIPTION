@@ -1,39 +1,26 @@
 Package: neurobase
 Type: Package
-Title: 'Neuroconductor' Base Package with Helper Functions for 'nifti' Objects
+Title: 'Neuroconductor' Base Package with Helper Functions for 'nifti'
+        Objects
 Version: 1.27.1
-Authors@R: person(given = "John",
-           family = "Muschelli",
-           role = c("aut", "cre"),
-           email = "muschellij2@gmail.com")
+Authors@R: person(given = "John", family = "Muschelli", role = c("aut",
+        "cre"), email = "muschellij2@gmail.com")
 Maintainer: John Muschelli <muschellij2@gmail.com>
-Description: Base package for 'Neuroconductor', which includes many helper 
-    functions that interact with objects of class 'nifti', implemented by
-    package 'oro.nifti', for reading/writing and also other manipulation 
-    functions.
-Imports:
-    methods,
-    abind,
-    matrixStats,
-    R.utils,
-    graphics,
-    grDevices,
-    stats, 
-    RNifti
-Depends:
-    oro.nifti (>= 0.9.0),
-    R (>= 3.2.0)
+Description: Base package for 'Neuroconductor', which includes many
+        helper functions that interact with objects of class 'nifti',
+        implemented by package 'oro.nifti', for reading/writing and
+        also other manipulation functions.
+Imports: methods, abind, matrixStats, R.utils, graphics, grDevices,
+        stats, RNifti
+Depends: oro.nifti (>= 0.9.0), R (>= 3.2.0)
 License: GPL-2
-Suggests:
-    testthat,
-    ggplot2,
-    knitr,
-    rmarkdown,
-    dplyr,
-    reshape2,
-    httr,
-    covr
+Suggests: testthat, ggplot2, knitr, rmarkdown, dplyr, reshape2, httr,
+        covr
 VignetteBuilder: knitr
 BugReports: https://github.com/muschellij2/neurobase/issues
 Encoding: UTF-8
 RoxygenNote: 6.1.0
+Remotes:  
+    neuroconductor/RNifti@a57bb39ad2ea2fb3b8759207e89a987cb4e7014c,
+    neuroconductor/oro.nifti@b494570240aa1a8c40b7a36f4bfb10ffcf44b765
+biocViews: 
