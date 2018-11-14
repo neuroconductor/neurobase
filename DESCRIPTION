@@ -2,7 +2,7 @@ Package: neurobase
 Type: Package
 Title: 'Neuroconductor' Base Package with Helper Functions for 'nifti'
         Objects
-Version: 1.27.1
+Version: 1.27.4
 Authors@R: person(given = "John", family = "Muschelli", role = c("aut",
         "cre"), email = "muschellij2@gmail.com")
 Maintainer: John Muschelli <muschellij2@gmail.com>
@@ -20,7 +20,8 @@ VignetteBuilder: knitr
 BugReports: https://github.com/muschellij2/neurobase/issues
 Encoding: UTF-8
 RoxygenNote: 6.1.0
-biocViews:
-Remotes: 
-    neuroconductor/RNifti@b622edfda520cf9ddfde1f43f6673f34cb381dd0,
-    neuroconductor/oro.nifti@abbfadf8976d2c29f518c76580d9095d3994439e
+Repository: Neuroconductor
+Remotes:  
+    neuroconductor/RNifti@983138e9492c35a52967451a12d4e27cbd87caf6,
+    neuroconductor/oro.nifti@f2b69621fdb62e21c79a13e8a16ab30f49b77efc
+biocViews: 
