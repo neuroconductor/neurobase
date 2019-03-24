@@ -20,8 +20,8 @@ VignetteBuilder: knitr
 BugReports: https://github.com/muschellij2/neurobase/issues
 Encoding: UTF-8
 RoxygenNote: 6.1.1
+biocViews:
 Repository: Neuroconductor
-Remotes:  
+Remotes: 
     neuroconductor/RNifti@24625c6782c9ebb2512d8652e007acb1ad9cce92,
     neuroconductor/oro.nifti@8362fa023b073cd5d0beec0f0be33a50944fe1d7
-biocViews: 
