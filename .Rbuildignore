@@ -24,3 +24,5 @@ R/write_nifti_S4\.R
 R/ortho3\.R
 ^\.httr-oauth$
 ^cran-comments\.md$
+^doc$
+^Meta$
