@@ -16,9 +16,9 @@ os:
 - osx
 osx_image: xcode9
 r:
-- 3.2
 - 3.3
 - 3.4
+- 3.5
 - release
 - devel
 matrix:
@@ -78,7 +78,7 @@ deploy:
   on:
     tags: true
   api-key:
-    secure: I6LMJ1ahkV8k8T/aD09wA1NSwc3W+rOJyadrIbfUJeFSrsslS4bBQdfARngB+dNiD6xhHBPpvScDIc3KKtreTh6YjLSsagS0yvTC/kHlhfosfzbAVcexj7VyfpUsDXQhYqA2eJWpRYSlvD5AI5k8EyvfXLmzDHa0ZE0J45YH9MeBUdxsyr+3o2FShn6wggggmcqn1Oifxr8B6xtOsYUE+hKYsUy7ywG88n5mdHCCFz29Fw5J8AXpNSMbY6EwSvdL8us7sYKCEICIrJWDD5GreRyFiVCnFA1RHQFNYZKqvB8yU1mEyfGw+l5hN2/0rqHtPdmI5HeJ/w3+OTVgHS0Ir/HDOQtBRQ2rLn6V6X9nSc8BQTqNcRykK0P5wmHosILASOjFnFaLggRA8WmTi0EcjLO1hWfSGv+szSp50nvqKainaAnIh9mg2jidfFPekOsfzV+ZRzN7Fknl0qlV2vARwn+0Su3iyj4DLJpm6JoM9ZFZcKSehqsbLXI0wMtVkh5tqtYLKmykqicycC79+RTD55E02X17Y6tGfwl9Mu0fLhpLsF04scnuEus86QCEDUBME9L7DqJDVvMtVK5Vt0EdU6/foLGwCptP0/Z+r2shGj7VdyctckqnRcPHFq5T6kjYT7CxMmom3OxF2GJTeqxc1mzz88d5HGnHs3qdbYOo2q4=
+    secure: ZNW+d3Apnr3OkFfDqWd3qD5SQ+uPnCtT18BCFuV/6tq4tNoPBcGY25PQDILM6mRYJqLefaCl65+JqHLvbLIlUW4Uc5AKsHwyFTyJm3n7CMBhcugDQuxXAXOXseoZh19MN3dPquj7aLHviRLRs1e4EzpWjTN3ymt0/uu8kidDnz4YEOVC9NZym6Ua3T0BLtqmBakxb1rB+cpyIL+vQ0Yrv414hAnNv7FKYwgVnnxUVPclTsR2h4mce1xkdcK10Nez+UazEwl3YJYAAfmsaPXYuLtCH3Q+6XKJYELhpg3iEx95f4E7jkbUKSS89GN04Lmai1UIvFeEsc5H/kGOnrdbMbqLAe2b6GU9ojjfSirXMmkB3XHTCq7Lx+JBGfsUomJdpygsl0GJHa+ZVkj0PaD3KTfvq1Z2RlSbjjBUZhzdFxFjlSzEywm8zBPgfJw7nFJE+3gynp/sU0T9RLu6TNxrwQrtXB9uHkJZsvuFvcRC993EP4TTYmeQVqmyXTdGljx5tHgrFPCMwn18CAfRikvsMVIt7AWzqc5L93Ohk2rMXAQSz31Bwahy6cZM6rf5GcgPGdqJDSP7XVGA2OuHJdxz+bs2gn2dqs96SjdvORHl9tqCroRD35TRuCQiaNGYOW0hAYzkKuddSpwQhUXO3qdxKgQPwT3NzCH/RFn0/88R5Wc=
 after_deploy:
 - if [[ "${TRAVIS_OS_NAME}" == "linux" && ${TRAVIS_R_VERSION_STRING} = "release" ]];
   then echo 'covr::coveralls(type = "all", quiet = FALSE)' > neuroc_covr.R ; travis_wait
