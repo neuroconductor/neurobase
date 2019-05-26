@@ -1,7 +1,3 @@
-^\./appveyor\.yml\.bak$
-^\./\.travis\.yml\.bak$
-^\.travis\.yml$
-^DESCRIPTION\.bak$
 ^README\.Rmd$
 ^docs$
 ^_pkgdown\.yml$
@@ -26,3 +22,7 @@ R/ortho3\.R
 ^cran-comments\.md$
 ^doc$
 ^Meta$
+^DESCRIPTION\.bak$
+^\.travis\.yml$
+^\./\.travis\.yml\.bak$
+^\./appveyor\.yml\.bak$
