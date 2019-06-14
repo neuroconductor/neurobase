@@ -1,86 +1,41 @@
-language: r
+language: R
+sudo: false
 cache: packages
 warnings_are_errors: true
-use_bioc: true
-bioc_required: true
-cran: http://cran.rstudio.com
-dist: trusty
-addons:
-  apt:
-    packages:
-    - libfftw3-dev
-    - libgsl0-dev
-    - libgsl0ldbl
+
 os:
-- linux
-- osx
-osx_image: xcode9
-r:
-- 3.3
-- 3.4
-- 3.5
-- release
-- devel
-matrix:
-  allow_failures:
-  - r: devel
-env:
-  global:
-  - RGL_USE_NULL=TRUE
-  - PROJECT_NAME=neuroconductor
-  - DISPLAY=:99.0
-  - R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
-r_check_args: "--as-cran --install-args=--build"
+  - linux
+  - osx
+
 before_install:
-- ulimit -n 2048
-- export PROJ_DIR=`basename $PWD`
-- fname=travis_helpers.sh
-- wget -O ${fname} http://bit.ly/travis_helpers
-- cat ${fname}; source ${fname}; rm ${fname}
-- cat DESCRIPTION
-- start_xvfb ;
-- export rver=`r_version`; echo $rver ;
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then no_open_mp ; fi
-- jags_install ;
-- v8_install ;
-- dcmtk_install ;
-- remove_neuroc_packages
-- cat DESCRIPTION
-- install_remotes_no_dep
-- cat DESCRIPTION
-- export PACKAGE_NAME=`package_name`
-- echo "Package Name is $PACKAGE_NAME"
-- if [[ "${PACKAGE_NAME}" == "waveslim" ]]; then fftw_install ; fi
-- if [[ "${PACKAGE_NAME}" == "dti" ]]; then gsl_install ; fi
-- if [[ "${PACKAGE_NAME}" == "ROpenCVLite" || "${PACKAGE_NAME}" == "Rvision" ]]; then
-  shopt -s expand_aliases ; x=`Rscript -e "cat(Sys.which('R'))"` ; echo "reset R"
-  ; alias R="travis_wait 100 ${x}" ; fi
-- install_python_requirements ;
-- R CMD javareconf ;
+  - wget -O travis_helpers.sh http://bit.ly/travis_helpers
+  - source travis_helpers.sh
+  - rm travis_helpers.sh
+  - PACKAGE_NAME=`package_name`
+  - PACKAGE_DIRECTORY=`basename ${PWD}`
+
+r_check_args: "--as-cran --install-args=--build"
+
 after_success:
-- dump_logs
+  - Rscript -e 'covr::codecov(type = "all")'
+
 after_failure:
-- dump_logs
-before_deploy:
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then PKG_TARBALL=$(ls -1t *.tgz | head -n 1);
-  PKG_TARBALL_WITH_R=`echo $PKG_TARBALL | sed 's/.tgz/_'"R${rver}"'.tgz/'` ; mv ${PKG_TARBALL}
-  ${PKG_TARBALL_WITH_R} ; echo "Built tarball is ${PKG_TARBALL_WITH_R}" ; fi
-- if [ "$TRAVIS_OS_NAME" = "linux" ]; then PKG_TARBALL=$(ls -1t *.tar.gz | head -n
-  1); PKG_TARBALL_WITH_R=`echo $PKG_TARBALL | sed 's/.tar.gz/_'"R${rver}"'.tar.gz/'`
-  ; mv ${PKG_TARBALL} ${PKG_TARBALL_WITH_R} ; echo "Built tarball is ${PKG_TARBALL_WITH_R}"
-  ; fi
-- if [[ "${TRAVIS_OS_NAME}" = "osx" ]]; then rm -f *.tar.gz; fi
+  - cat ${PWD}.Rcheck/00install.out
+  - cat ${PWD}.Rcheck/00check.log
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
 deploy:
   provider: releases
   skip_cleanup: true
+  api_key:
+    secure: Wyb6Hj7awahxJN3jlwVyWQ41364xYPCAohvAOwmUn2wgudQLsWmNA3BEKUromwvpnVJL+aFKaoi/WeBdk7L+imVvJjjBmWJiQdAwr2JZI0GeBNRSppCm3rHMYlq3PJzcnDYv/GMW5d9oQOMNtzY7oYxdemV12Z/GmeWBb9GTRWEzNzZ2d46btQfp8vAuxl4f4kCLUxpqMZK6IN6svV4910TVRJl3RId121JbgdUKgNS4HJMl1ae5X6CY+tkxwP+xW+OwdpkknXcndDvTpymjVk5kb8cN2zcrrFKf/3eYCvone0F32ooOL5GX49kpz4mgDmh8X1jywoT94tL8YE5xVC86zEtdnbcAOBw0MT7iEUuUcuhGoABDEHldgxAOEVMWLxVD0I5FK9yZRic5z9om4DpMYQBCzrHF5gcuzyMpO8O+mdtY3NK5BI75Iz1pUgzjrg5CGtMF4VXOcj8KPyRjKMgpw0yCXbvyR/V9BHrbvZpexQut5ALOvf/i7EJtJdHJjwnazcu+wG9kiQoT/KR1xEHomgOLY9wFTIi3fDVkZniNpuga/EaQj/4aVIkULV5/stQZvjspjBYeYwDDmgiOQYReiCWpGMi5KaclkB6SNX1CFPfqWWDvsBBLBzkDTOgvFP5zDa2Fe3t7sAI1TbVGVKcP1PlMjCzbSwz2rs9t4uw=
   file_glob: true
-  overwrite: true
-  file: "${PACKAGE_NAME}*.t*gz"
+  file: neurobase*.t*gz
   on:
-    tags: true
-  api-key:
-    secure: VYZS36w49T3SaZmPa6Ce5Wr/VSBaw6nF0DXOSg/zRSYZPeHBuBxIuqJO84VDQa4dLfgOZLx+AetarZpFIFNLx5As5ny3p1JWoiY5zgCynU/XrwbEPttvaNotBl0BPt3Guysgsz2LtCVDnwDnYg+h4jx2cJgv10n9Nx5ZwdSduz7FOGRWFyEJG6wZb+/NY7CS4T9HVmt1c09v54Ns3VBgy0O9S/Hd/bHw8E4IP1u2OLxeiNRZp/OYSDfToOJmPi6bsf9+N5TVEG4fZ5B9yH+gxlaMH2u/GpYoR1hemTKFoeCaLC8XH7iz2IODS/RA7STMs1lKAI4eQjorYu+xRObTqRiPnhQYPzM8d1m8vD7EHhq1MGim8h1QIBR526Y0iqytv1pdPasmFsffDOv883SWqnCwInhagu0e0UWf9TRwouECxckY29rC8chOJyj+lU+WnWPZkEairQ1rBBIw7BRif2OTE+DkKYk6Ukl9f1Z3sOxLkZbu8k4rQ7ndiTgx8459JlJQbpD94vkGnWpo8/3bKJ/QsfX0sQNoP1dAjSW8uzp1JrHF2Rzlv8NR+c1B40gXrQ9xSAQkzvb+DwkIS//ZVFNOiX1SBzPLA7N+vIeaKLfN7du7oSFWm9w0f2nTK67jvtkhTAtFGOVlPQC6+AY3kTRXDY0Samx9LzbTfYJiOuQ=
-after_deploy:
-- if [[ "${TRAVIS_OS_NAME}" == "linux" && ${TRAVIS_R_VERSION_STRING} = "release" ]];
-  then echo 'covr::coveralls(type = "all", quiet = FALSE)' > neuroc_covr.R ; travis_wait
-  100 Rscript neuroc_covr.R ; rm neuroc_covr.R ; fi
+    tags: true    
+    repo: muschellij2/neurobase
+
