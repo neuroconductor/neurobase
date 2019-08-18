@@ -13,10 +13,14 @@ addons:
     - libfftw3-dev
     - libgsl0-dev
     - libgsl0ldbl
+r_binary_packages:
+- rgl
 os:
 - linux
 - osx
 osx_image: xcode9
+services:
+- xvfb
 r:
 - 3.3
 - 3.4
@@ -40,12 +44,14 @@ before_install:
 - wget -O ${fname} http://bit.ly/travis_helpers
 - cat ${fname}; source ${fname}; rm ${fname}
 - cat DESCRIPTION
-- start_xvfb ;
+- codename=`linux_codename`;
+- if [ "${codename}" = "trusty" ]; then start_xvfb ; fi
 - export rver=`r_version`; echo $rver ;
 - if [ "$TRAVIS_OS_NAME" = "osx" ]; then no_open_mp ; fi
-- jags_install ;
-- v8_install ;
-- dcmtk_install ;
+- jags_install || true;
+- v8_install || true;
+- dcmtk_install || true;
+- gsl_install 2.1 || true ;
 - export cmake_version="3.11"
 - cmake --version
 - x=`cmake_setup`; echo "${x}"; eval ${x};
@@ -86,7 +92,7 @@ deploy:
   on:
     tags: true
   api-key:
-    secure: UtC5MqWDtc2DJpLVZ8oIPA+sYfUvpxloK2nBvpz1fTzE5e8b1KI/wlaEswFVjZ+oFyJotURJ93jMw/CzM6hh9B1TthrNjrhZYac6uDquBErBdlHxfdXX/1wCa0g96q2giP26gjzXruperBpVAiroBAQoBJiEMWInMD2i0DgVJscb9a8jdy6I81keEVYtCUKaPYtPGjed2k95aYZpaeYmkv/UrMmUjAtInJ+yfYN/E5+Tw8PbEBPWpbkfdT7zRY8kKvP9bDo0zZLngdtj+6TvfTNo4tREpeTmIMyFtL2tePa2bM80m9BZ9Lc4QS6TGnXVIw17qO0e0zhwC1c5bmDUX24oEfE8bF87aSc3O9KnH44uO7ZxOdXUNv6xCkefa7v+W7KkNd6blDYnhiuXLponMbIbaxXyDd/68S7BI/WAk2WzcWESWVge6MR+OkVL45zrFFjv9MyYN7kJFHB0n1px58iReiVbI4H0BtJjI3Tljd3vAFJkrMXk7Jiyag+pve29vdghmfAtO621oICE9KWzFg2aEqkLfoBLHTZtHuSj6xrONpD0qLwU+iODgq1lieDIueZZnXKo7UWTu890lkEGAROwPhUgGzJp6zXNnrBsrjB7z83bLN8Tm9gAjrvMBsQ6khCZMvRwJtMWzC+jAN9G6EUnjHXsuSYf32tI+JEyqeY=
+    secure: 4APUOlfgUBRTBk8sDhKb8QiM7m+NzelvnS3Xcty+O3NigIYkd559CtnP0n3hWAQzcTCsG8zV5nZjBstDrFwdCNNihQrU8TM6qlXKybiu+4iEl7NtgnUkVxxtcA+QBWfvHR///r/dHLX30N5BbdoQ1eUL+eYsD28OZJOHOa0ZkVSD9Z40BKGokYK4b6/t1YdGkB34fAuIlgX13OcS53Owze7tqouxM6Amntg5bYGW8YQ9PU/CFNARc6CLyV/TGyxZlCUbYumBu8uIWj7IuooxfNcCMv7TndH5wVRe5XW3q5Bz0Sw0CHpKJrMxh1qbRaR0doikyyYP+f/nNqJ6baKl8hdRwMExJQ4z/w6h0ls1KH7dJH3N2qghpDH1WANDDLSCyvIACFd5RGfCN/Fc+LwW6TAj2DvMYfJtUX1R++7h4KHRF+T+dDtUYxWgai6uKFfeuBgx9IoSH+9rmyxT2/sAH9rRP3lsnV99VNF6qOYHhndN0aEtnvKrumAPQgM/9Jv0srRawmEAfh+lEvjHFiWjDdSYhqqXz7PtJGF9yWzLZTnu20pW7tQfNOx0ZGH06nI5x5s+U2s4oHYAPPnPJ2jf5r45UjWwQV+GYsV8JW+RLTU5flWOm4tKss29nAntWo670SG+HogofTppkY0xa5cyB7jiF/noX3AedY1rcUcFRSQ=
 after_deploy:
 - echo "${PROJECT_NAME}" | grep -q "releases"; if [[ $? -eq 0 ]]; then run_coverage="false";
   else run_coverage=; fi;
