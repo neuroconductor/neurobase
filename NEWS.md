@@ -1,3 +1,11 @@
+# neurobase 1.27.11
+
+* Now `ortho_diff` should be able to handle `RNifti` objects quickly.
+
+# neurobase 1.27.10
+
+* Added ability to do `ortho2` when third dimension is 1.
+
 # neurobase 1.27.4
 
 * Added a `NEWS.md` file to track changes to the package.
