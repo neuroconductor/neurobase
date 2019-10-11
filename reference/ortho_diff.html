@@ -138,7 +138,7 @@ image and the assumed ground truth (<code>roi</code>).</p>
   <span class='no'>...</span>)
 
 <span class='fu'>multi_overlay_diff</span>(<span class='no'>x</span>, <span class='no'>pred</span>, <span class='no'>roi</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"#56B4E9"</span>,
-  <span class='st'>"#D55E00"</span>, <span class='st'>"#009E73"</span>), <span class='kw'>ybreaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+  <span class='st'>"#D55E00"</span>, <span class='st'>"#009E73"</span>), <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,6 +184,10 @@ not <code>NULL</code></p></td>
       <th>...</th>
       <td><p>arguments to be passed to <code>ortho2</code> or
 <code>multi_overlay</code></p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>List of images of class <code>nifti</code> or character vector of filenames</p></td>
     </tr>
     <tr>
       <th>z</th>
