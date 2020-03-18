@@ -10,16 +10,16 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/all.min.css" integrity="sha256-PbSmjxuVAzJ6FPvNYsrXygfGhNJYyZ2GktDbkMBqQZg=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.1/css/v4-shims.min.css" integrity="sha256-A6jcAdwFD48VMjlI3GDxUd+eCQa7/KWy6G9oe/ovaPA=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
@@ -38,7 +38,6 @@
 <meta property="og:title" content="Density of Values in an Image — density.nifti" />
 <meta property="og:description" content="Computes the density of values
 of an image with the option for a mask." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -70,7 +69,7 @@ of an image with the option for a mask." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">neurobase</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.28.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.30.0</span>
       </span>
     </div>
 
@@ -108,7 +107,12 @@ of an image with the option for a mask." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/muschellij2/neurobase/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -123,7 +127,7 @@ of an image with the option for a mask." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Density of Values in an Image</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/muschellij2/neurobase/blob/master/R/density.nifti.R'><code>R/density.nifti.R</code></a></small>
     <div class="hidden name"><code>density.nifti.Rd</code></div>
     </div>
 
@@ -167,17 +171,55 @@ values of the image are plotted.</p></td>
 #&gt; Call:
 #&gt; 	density.default(x = x)
 #&gt; 
-#&gt; Data: x (488 obs.);	Bandwidth 'bw' = 0.1551
+#&gt; Data: x (490 obs.);	Bandwidth 'bw' = 0.1474
 #&gt; 
 #&gt;        x                 y            
-#&gt;  Min.   :-0.4552   Min.   :0.0001092  
-#&gt;  1st Qu.: 0.5578   1st Qu.:0.0108373  
-#&gt;  Median : 1.5709   Median :0.1642851  
-#&gt;  Mean   : 1.5709   Mean   :0.2465134  
-#&gt;  3rd Qu.: 2.5840   3rd Qu.:0.4746675  
-#&gt;  Max.   : 3.5971   Max.   :0.7250282  </div></pre>
+#&gt;  Min.   :-0.4389   Min.   :0.0000622  
+#&gt;  1st Qu.: 0.6136   1st Qu.:0.0056362  
+#&gt;  Median : 1.6660   Median :0.1065839  
+#&gt;  Mean   : 1.6660   Mean   :0.2373038  
+#&gt;  3rd Qu.: 2.7184   3rd Qu.:0.4242115  
+#&gt;  Max.   : 3.7708   Max.   :0.7737313  </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/density.html'>density</a></span>(<span class='no'>img</span>)</div><div class='output co'>#&gt; 
+#&gt; Call:
+#&gt; 	density.default(x = x)
+#&gt; 
+#&gt; Data: x (1000 obs.);	Bandwidth 'bw' = 0.2202
+#&gt; 
+#&gt;        x                 y            
+#&gt;  Min.   :-3.7790   Min.   :0.0000205  
+#&gt;  1st Qu.:-1.8370   1st Qu.:0.0048685  
+#&gt;  Median : 0.1051   Median :0.0647384  
+#&gt;  Mean   : 0.1051   Mean   :0.1286028  
+#&gt;  3rd Qu.: 2.0472   3rd Qu.:0.2439546  
+#&gt;  Max.   : 3.9892   Max.   :0.3948873  </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/stats/density.html'>density</a></span>(<span class='fu'>as.anlz</span>(<span class='no'>img</span>), <span class='kw'>mask</span> <span class='kw'>=</span> <span class='no'>mask</span>)</div><div class='output co'>#&gt; 
+#&gt; Call:
+#&gt; 	density.default(x = x)
+#&gt; 
+#&gt; Data: x (490 obs.);	Bandwidth 'bw' = 0.1474
+#&gt; 
+#&gt;        x                 y            
+#&gt;  Min.   :-0.4389   Min.   :0.0000622  
+#&gt;  1st Qu.: 0.6136   1st Qu.:0.0056362  
+#&gt;  Median : 1.6660   Median :0.1065839  
+#&gt;  Mean   : 1.6660   Mean   :0.2373038  
+#&gt;  3rd Qu.: 2.7184   3rd Qu.:0.4242115  
+#&gt;  Max.   : 3.7708   Max.   :0.7737313  </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/stats/density.html'>density</a></span>(<span class='fu'>as.anlz</span>(<span class='no'>img</span>))</div><div class='output co'>#&gt; 
+#&gt; Call:
+#&gt; 	density.default(x = x)
+#&gt; 
+#&gt; Data: x (1000 obs.);	Bandwidth 'bw' = 0.2202
+#&gt; 
+#&gt;        x                 y            
+#&gt;  Min.   :-3.7790   Min.   :0.0000205  
+#&gt;  1st Qu.:-1.8370   1st Qu.:0.0048685  
+#&gt;  Median : 0.1051   Median :0.0647384  
+#&gt;  Mean   : 0.1051   Mean   :0.1286028  
+#&gt;  3rd Qu.: 2.0472   3rd Qu.:0.2439546  
+#&gt;  Max.   : 3.9892   Max.   :0.3948873  </div><div class='input'>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
