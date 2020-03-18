@@ -1,0 +1,34 @@
+language: R
+sudo: false
+cache: packages
+warnings_are_errors: true
+os:
+- linux
+- osx
+before_install:
+- wget -O travis_helpers.sh http://bit.ly/travis_helpers
+- source travis_helpers.sh
+- rm travis_helpers.sh
+- PACKAGE_NAME=`package_name`
+- PACKAGE_DIRECTORY=`basename ${PWD}`
+r_check_args: "--as-cran --install-args=--build"
+after_success:
+- Rscript -e 'covr::codecov(type = "all")'
+after_failure:
+- cat ${PWD}.Rcheck/00install.out
+- cat ${PWD}.Rcheck/00check.log
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: IDGIYMBY7f+wU3O0t1dgG8npWNJ74jWmxbgagtoz5HgWHVagUhTINaHDgWKEKi+JmNSeKbxvvzCvLl2zZf6m+B0NTxRytabu+WVnfYklBTUfaZ+hQbVzA0q5yAq5IfJ4y2DRlXoNg5M+RpJBkBVQ9XHyvqTJ4mZSfNrj42JGbT1bkOtXeCp+DP7s2jaa/PG3RBYRPUXKhh+ZSFkCxi6OQ6kFG9iVxqDX61eENwo9fFedexwPDUj+UAd4XBIo1RBqDKM4zIBkSHr+Sc9XWRWJPQqiA7OBi4tVOX3+lNswOyqxgtMQ9LDVQn4A3W4GDveGeGFKzZ76Hc34GjaXZOqeBQgPMQXHL2ud1AJtZhrc7qkM5UwvwEpNDyt7Fvah28OQmqmtVo3G5b/ccWpUhsg8kUPxwfFrhH0zaPpVevfpuKIdRnEFkqJTxKpfsxMgyGBdYxMAZ1bkHLl0Vc3FtQDwTYULRNeaCJZz82ov4iw0C0rytrowiBqXC67dxf8RVyF5WU8OxQ2CrPiKxlt/uwg8nfPlMfcG1ku6+YfS//jTwmcJb36nNFQ56dgabqlYar79cL77YZJkEiOMlWbdsDBADbS92Op2XIJWUHAXzgy7Ht+lDbkI5wJ/qLVGJqOLuAii0Z1YcVADOVBV7rji75ciu9g3ZzCW3IGkXYqXndE+7kg=
+  file_glob: true
+  file: neurobase*.t*gz
+  on:
+    tags: true    
+    repo: muschellij2/neurobase

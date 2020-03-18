@@ -23,3 +23,6 @@ R/ortho3\.R
 ^doc$
 ^Meta$
 ^pkgdown$
+^DESCRIPTION\.bak$
+^\.travis\.yml$
+^\./\.travis\.yml\.bak$
